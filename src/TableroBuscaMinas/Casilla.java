@@ -1,11 +1,11 @@
 package TableroBuscaMinas;
 
-public class Clasilla {
+public class Casilla {
     protected int fila;
     protected int columna;
     protected boolean mina;
 
-    public Clasilla(int fila, int columna, boolean mina) {
+    public Casilla(int fila, int columna) {
         this.fila = fila;
         this.columna = columna;
         this.mina = mina;
