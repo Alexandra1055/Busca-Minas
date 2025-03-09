@@ -4,11 +4,11 @@ public class Casilla {
     protected int fila;
     protected int columna;
     protected boolean mina;
+    protected int numeroMinaCerca;
 
     public Casilla(int fila, int columna) {
         this.fila = fila;
         this.columna = columna;
-        this.mina = mina;
     }
 
     public int getFila() {
@@ -33,5 +33,13 @@ public class Casilla {
 
     public void setColumna(int columna) {
         this.columna = columna;
+    }
+
+    public int getNumeroMinaCerca() {
+        return numeroMinaCerca;
+    }
+
+    public void setNumeroMinaCerca(int numeroMinaCerca) {
+        this.numeroMinaCerca = numeroMinaCerca;
     }
 }
