@@ -11,6 +11,8 @@ public class Casilla {
         this.fila = fila;
         this.columna = columna;
         this.tapada = tapada;
+        this.mina = false;
+        this.numeroMinaCerca = 0;
     }
 
     public boolean estaTapada() {

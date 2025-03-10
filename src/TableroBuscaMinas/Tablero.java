@@ -75,8 +75,54 @@ public class Tablero {
         }
     }
 
+    public boolean comprobarMinas(){
+        for(int fila=0; fila<numFilas; fila++){
+            for(int col=0; col<numColumnas; col++){
+                if(casillas[fila][col].esMina() && !casillas[fila][col].estaTapada()){
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
     public void destaparCasilla(int fila, int columna){
+
+        if (!casillas[fila][columna].estaTapada()) {
+            return;
+        }
+
         casillas[fila][columna].setTapada(false);
+
+        if(casillas[fila][columna].getNumeroMinaCerca() == 0){
+            ceroCercano(fila,columna);
+        }
+    }
+
+    private void ceroCercano(int fila, int columna) {
+        int[][] direcciones = {
+                {-1, -1}, {-1, 0},{-1, 1},
+                {0, -1},          {0, 1},
+                {1, -1},  {1, 0}, {1, 1}
+        };
+
+        for (int i = 0; i < direcciones.length; i++) {
+            int nuevaFila = fila + direcciones[i][0];
+            int nuevaColumna = columna + direcciones[i][1];
+
+            if (nuevaFila >= 0 && nuevaFila < numFilas &&
+                    nuevaColumna >= 0 && nuevaColumna < numColumnas) {
+                Casilla casillaCercana = casillas[nuevaFila][nuevaColumna];
+
+                if (casillaCercana.estaTapada() && !casillaCercana.esMina()){
+                    casillaCercana.setTapada(false);
+
+                    if (casillaCercana.getNumeroMinaCerca() == 0){
+                        ceroCercano(nuevaFila,nuevaColumna);
+                    }
+                }
+            }
+        }
     }
 
     public void imprimirTablero(){
@@ -86,7 +132,7 @@ public class Tablero {
                 if(casillas[i][j].estaTapada()){
                     System.out.print("[ ]");
                 }else{
-                    System.out.print(casillas[i][j].esMina() ? "*" : casillas[i][j].getNumeroMinaCerca());
+                    System.out.print(casillas[i][j].esMina() ? "[*]" : "[" +casillas[i][j].getNumeroMinaCerca() +"]");
                 }
             }
             System.out.println("");
@@ -94,7 +140,7 @@ public class Tablero {
     }
 
     public static void main(String[] args) {
-        Tablero tableroPrueba = new Tablero(10,10,5);
+        Tablero tableroPrueba = new Tablero(6,6,5);
 
         tableroPrueba.imprimirTablero();
     }

@@ -11,16 +11,21 @@ public class Juego_Busca_Minas {
         Scanner imprimir = new Scanner(System.in);
         System.out.println("Busca Minas: ");
 
-        Tablero tablero = new Tablero(10,10,5);
+        Tablero tablero = new Tablero(5,5,3);
         tablero.imprimirTablero();
-        System.out.print("Dime una fila: ");
-        int fila = imprimir.nextInt();
-        System.out.println();
-        System.out.print("Dime una columna: ");
-        int columna = imprimir.nextInt();
+        boolean minaDestapada = false;
+        while (!minaDestapada){
+            System.out.print("Dime una fila: ");
+            int fila = imprimir.nextInt();
+            System.out.println();
+            System.out.print("Dime una columna: ");
+            int columna = imprimir.nextInt();
 
-        tablero.destaparCasilla(fila,columna);
-        tablero.imprimirTablero();
+            tablero.destaparCasilla(fila,columna);
+
+            tablero.imprimirTablero();
+            minaDestapada = tablero.comprobarMinas();
+        }
 
     }
 }
