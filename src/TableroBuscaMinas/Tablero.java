@@ -20,7 +20,7 @@ public class Tablero {
 
         for (int fila = 0; fila < casillas.length; fila++) {
             for (int columna = 0; columna < casillas[fila].length; columna++) {
-             casillas[fila][columna]= new Casilla(fila,columna);
+             casillas[fila][columna]= new Casilla(fila,columna,true);
             }
 
         }
@@ -34,7 +34,7 @@ public class Tablero {
         while(minasGeneradas != numMinas){
             int filaTemp = (int)(Math.random()* casillas.length);
             int columnaTemp = (int)(Math.random()* casillas[0].length);
-            if (!casillas[filaTemp][columnaTemp].isMina()){
+            if (!casillas[filaTemp][columnaTemp].esMina()){
                 casillas[filaTemp][columnaTemp].setMina(true);
                 minasGeneradas++;
             }
@@ -56,7 +56,7 @@ public class Tablero {
 
             if (nuevaFila >= 0 && nuevaFila < numFilas &&
                     nuevaColumna >= 0 && nuevaColumna < numColumnas &&
-                    casillas[nuevaFila][nuevaColumna].isMina()) {
+                    casillas[nuevaFila][nuevaColumna].esMina()) {
                 minasAlrededor++;
             }
         }
@@ -67,7 +67,7 @@ public class Tablero {
     private void calcularMinasCerca(){
         for(int fila=0; fila<numFilas; fila++){
             for(int col=0; col<numColumnas; col++){
-                if(!casillas[fila][col].isMina()){
+                if(!casillas[fila][col].esMina()){
                     int contador = contadorDeMinas(fila, col);
                     casillas[fila][col].setNumeroMinaCerca(contador);
                 }
@@ -75,10 +75,19 @@ public class Tablero {
         }
     }
 
-    private void imprimirTablero(){
+    public void destaparCasilla(int fila, int columna){
+        casillas[fila][columna].setTapada(false);
+    }
+
+    public void imprimirTablero(){
         for (int i = 0; i < casillas.length; i++) {
             for (int j = 0; j < casillas[i].length; j++) {
-                System.out.print(casillas[i][j].isMina() ? "*" : casillas[i][j].getNumeroMinaCerca());
+
+                if(casillas[i][j].estaTapada()){
+                    System.out.print("[ ]");
+                }else{
+                    System.out.print(casillas[i][j].esMina() ? "*" : casillas[i][j].getNumeroMinaCerca());
+                }
             }
             System.out.println("");
         }

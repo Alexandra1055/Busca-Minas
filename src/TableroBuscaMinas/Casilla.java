@@ -5,10 +5,20 @@ public class Casilla {
     protected int columna;
     protected boolean mina;
     protected int numeroMinaCerca;
+    protected boolean tapada;
 
-    public Casilla(int fila, int columna) {
+    public Casilla(int fila, int columna, boolean tapada) {
         this.fila = fila;
         this.columna = columna;
+        this.tapada = tapada;
+    }
+
+    public boolean estaTapada() {
+        return tapada;
+    }
+
+    public void setTapada(boolean tapada) {
+        this.tapada = tapada;
     }
 
     public int getFila() {
@@ -19,7 +29,7 @@ public class Casilla {
         this.fila = fila;
     }
 
-    public boolean isMina() {
+    public boolean esMina() {
         return mina;
     }
 
