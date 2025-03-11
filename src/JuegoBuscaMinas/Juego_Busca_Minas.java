@@ -21,7 +21,18 @@ public class Juego_Busca_Minas {
             System.out.print("Dime una columna: ");
             int columna = imprimir.nextInt();
 
-            tablero.destaparCasilla(fila,columna);
+            System.out.println("¿Que quieres hacer: \n Destapar (-D-) \n Colocar Bandera (-B-)");
+            char accion = imprimir.next().charAt(0);
+
+            if (accion == 'D' || accion == 'd') {
+                tablero.destaparCasilla(fila, columna);
+            } else if (accion == 'B' || accion == 'b') {
+                tablero.colocarBandera(fila, columna);
+            } else {
+                System.out.println("Opción no válida. Inténtalo de nuevo.");
+                continue;
+            }
+
 
             tablero.imprimirTablero();
             minaDestapada = tablero.comprobarMinas();

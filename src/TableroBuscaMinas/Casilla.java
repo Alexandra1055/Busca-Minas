@@ -6,6 +6,7 @@ public class Casilla {
     protected boolean mina;
     protected int numeroMinaCerca;
     protected boolean tapada;
+    protected boolean bandera;
 
     public Casilla(int fila, int columna, boolean tapada) {
         this.fila = fila;
@@ -13,6 +14,15 @@ public class Casilla {
         this.tapada = tapada;
         this.mina = false;
         this.numeroMinaCerca = 0;
+        this.bandera = false;
+    }
+
+    public boolean tieneBandera(){
+        return bandera;
+    }
+
+    public void setBandera(boolean bandera) {
+        this.bandera = bandera;
     }
 
     public boolean estaTapada() {

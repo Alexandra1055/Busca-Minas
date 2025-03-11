@@ -43,9 +43,8 @@ public class Tablero {
 
     private int contadorDeMinas(int fila, int columna) {
         int[][] direcciones = {
-                {-1, -1}, {-1, 0},{-1, 1},
-                {0, -1},          {0, 1},
-                {1, -1},  {1, 0}, {1, 1}
+                {-1, -1}, {-1, 0},{-1, 1}, {0, -1}, {0, 1}, {1, -1},  {1, 0}, {1, 1}
+
         };
 
         int minasAlrededor = 0;
@@ -86,6 +85,17 @@ public class Tablero {
         return false;
     }
 
+    public boolean colocarBandera(int fila, int columna){
+        if (!casillas[fila][columna].estaTapada()){
+            return false;
+        }
+
+        boolean estadoActualBandera = casillas[fila][columna].tieneBandera();
+        casillas[fila][columna].setBandera(!estadoActualBandera);
+
+        return true;
+    }
+
     public void destaparCasilla(int fila, int columna){
 
         if (!casillas[fila][columna].estaTapada()) {
@@ -101,9 +111,7 @@ public class Tablero {
 
     private void ceroCercano(int fila, int columna) {
         int[][] direcciones = {
-                {-1, -1}, {-1, 0},{-1, 1},
-                {0, -1},          {0, 1},
-                {1, -1},  {1, 0}, {1, 1}
+                {-1, -1}, {-1, 0}, {-1, 1}, {0, -1}, {0, 1}, {1, -1},  {1, 0}, {1, 1}
         };
 
         for (int i = 0; i < direcciones.length; i++) {
@@ -130,18 +138,16 @@ public class Tablero {
             for (int j = 0; j < casillas[i].length; j++) {
 
                 if(casillas[i][j].estaTapada()){
-                    System.out.print("[ ]");
+                    if(casillas[i][j].tieneBandera()){
+                        System.out.print("[B]");
+                    } else {
+                        System.out.print("[ ]");
+                    }
                 }else{
                     System.out.print(casillas[i][j].esMina() ? "[*]" : "[" +casillas[i][j].getNumeroMinaCerca() +"]");
                 }
             }
             System.out.println("");
         }
-    }
-
-    public static void main(String[] args) {
-        Tablero tableroPrueba = new Tablero(6,6,5);
-
-        tableroPrueba.imprimirTablero();
     }
 }
