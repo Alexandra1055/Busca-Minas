@@ -2,7 +2,6 @@ package TableroBuscaMinas;
 
 public class Tablero {
     Casilla[][] casillas;
-
     int numFilas;
     int numColumnas;
     int numMinas;
@@ -13,6 +12,18 @@ public class Tablero {
         this.numMinas=numMinas;
 
         iniciarCasillas();
+    }
+
+    public Casilla[][] getCasillas() {
+        return casillas;
+    }
+
+    public int getNumFilas() {
+        return numFilas;
+    }
+
+    public int getNumColumnas() {
+        return numColumnas;
     }
 
     public void iniciarCasillas(){
@@ -43,7 +54,9 @@ public class Tablero {
 
     private int contadorDeMinas(int fila, int columna) {
         int[][] direcciones = {
-                {-1, -1}, {-1, 0},{-1, 1}, {0, -1}, {0, 1}, {1, -1},  {1, 0}, {1, 1}
+                {-1, -1}, {-1, 0},{-1, 1},
+                    {0, -1}, {0, 1},
+                {1, -1}, {1, 0}, {1, 1}
 
         };
 
@@ -111,7 +124,9 @@ public class Tablero {
 
     private void ceroCercano(int fila, int columna) {
         int[][] direcciones = {
-                {-1, -1}, {-1, 0}, {-1, 1}, {0, -1}, {0, 1}, {1, -1},  {1, 0}, {1, 1}
+                {-1, -1}, {-1, 0}, {-1, 1},
+                    {0, -1}, {0, 1},
+                {1, -1}, {1, 0}, {1, 1}
         };
 
         for (int i = 0; i < direcciones.length; i++) {
@@ -133,21 +148,4 @@ public class Tablero {
         }
     }
 
-    public void imprimirTablero(){
-        for (int i = 0; i < casillas.length; i++) {
-            for (int j = 0; j < casillas[i].length; j++) {
-
-                if(casillas[i][j].estaTapada()){
-                    if(casillas[i][j].tieneBandera()){
-                        System.out.print("[B]");
-                    } else {
-                        System.out.print("[ ]");
-                    }
-                }else{
-                    System.out.print(casillas[i][j].esMina() ? "[*]" : "[" +casillas[i][j].getNumeroMinaCerca() +"]");
-                }
-            }
-            System.out.println("");
-        }
-    }
 }
