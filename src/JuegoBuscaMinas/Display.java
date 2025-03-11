@@ -68,17 +68,23 @@ public class Display {
 
                 if(casillas[i][j].estaTapada()){
                     if(casillas[i][j].tieneBandera()){
-                        System.out.print("[\uD83D\uDEA9]");
+                        System.out.print("[ \uD83D\uDEA9]");
                     } else {
-                        System.out.print("[⬛]");
+                        System.out.print("[ \uD81A\uDCC2 ]");
                     }
                 }else{
-                    System.out.print(casillas[i][j].esMina() ? "[\uD83D\uDCA3]" : "[" +casillas[i][j].getNumeroMinaCerca() +"]");
+                    if (casillas[i][j].esMina()){
+                        System.out.print( "[\uD83D\uDCA3]" );
+                    }else{
+                        System.out.print( "[ " + casillas[i][j].getNumeroMinaCercaConColor()+ " ]");
+                    }
+
                 }
             }
             System.out.println("");
         }
     }
+
 
 
 }
