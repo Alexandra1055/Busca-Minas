@@ -148,4 +148,15 @@ public class Tablero {
         }
     }
 
+    public boolean juegoGanado(){
+        for (int fila = 0; fila < numFilas; fila++) {
+            for (int col = 0; col < numColumnas; col++) {
+                if (!casillas[fila][col].esMina() && casillas[fila][col].estaTapada()){
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
 }
