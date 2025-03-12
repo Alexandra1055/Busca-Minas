@@ -26,26 +26,29 @@ public class Display {
     }
 
     private Tablero obtenerTableroPredefinido (int opcion){
-        String nivel="";
+        Nivel nivel;
 
         switch (opcion){
             case 1:
-                nivel = "principiante";
+                nivel = Nivel.PRINCIPIANTE;
                 break;
             case 2:
-                nivel= "intermedio";
+                nivel= Nivel.INTERMEDIO;
+                break;
             case 3:
-                nivel= "experto";
+                nivel= Nivel.DIFICIL;
+                break;
 
             default:
                 System.out.println("Por defecto, se usa el nivel principiante.");
-                nivel= "principiante";
+                nivel= Nivel.PRINCIPIANTE;
         }
         return TableroFactory.crearTablero(nivel,0,0,0);
 
     }
 
     private Tablero obtenerTableroPersonalizado(){
+        Nivel nivel;
 
         System.out.print("Introduce el numero de filas: ");
         int filas = imprimir.nextInt();
@@ -56,7 +59,7 @@ public class Display {
         System.out.print("Introduce el numero de minas: ");
         int minas = imprimir.nextInt();
 
-        return TableroFactory.crearTablero("personalizado",filas,columnas,minas);
+        return TableroFactory.crearTablero(Nivel.PERSONALIZADO,filas,columnas,minas);
     }
 
 
@@ -64,6 +67,8 @@ public class Display {
 
         Casilla[][] casillas = tablero.getCasillas();
         for (int i = 0; i < casillas.length; i++) {
+
+            System.out.print("- "+ i + " -");
             for (int j = 0; j < casillas[i].length; j++) {
 
                 if(casillas[i][j].estaTapada()){
@@ -81,10 +86,47 @@ public class Display {
 
                 }
             }
-            System.out.println("");
+            System.out.println();
         }
+        System.out.print(" - - ");
+
+        for (int j = 0; j < casillas[0].length; j++) {
+            System.out.print(" -"+ j + "- ");
+        }
+        System.out.println();
     }
 
+    public void jugar (Tablero tablero){
+        boolean juegoTerminado = false;
+        while (!juegoTerminado){
+            try{
+                System.out.print("Dime una fila: ");
+                int fila = imprimir.nextInt();
+                System.out.println();
+                System.out.print("Dime una columna: ");
+                int columna = imprimir.nextInt();
+
+                System.out.println("¿Que quieres hacer: " +
+                        "\n Destapar (-D-)\uD83D\uDD0D " +
+                        "\n Colocar Bandera (-B-)\uD83D\uDEA9");
+                char accion = imprimir.next().charAt(0);
+
+                if (accion == 'D' || accion == 'd') {
+                    tablero.destaparCasilla(fila, columna);
+                } else if (accion == 'B' || accion == 'b') {
+                    tablero.colocarBandera(fila, columna);
+                }
+            } catch (NumberFormatException e){
+                System.out.println("A ocurrido un error: " + e);
+                System.out.println("Opción no válida. Inténtalo de nuevo.");
+                continue;
+            }
+
+            imprimirTablero(tablero);
+        }
+
+        System.out.println("Has ganado");
+    }
 
 
 }
