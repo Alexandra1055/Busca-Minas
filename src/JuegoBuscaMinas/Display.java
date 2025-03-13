@@ -54,20 +54,30 @@ public class Display {
         int minas = 0;
 
         do{
-            System.out.print("Introduce el numero de filas (minimo 3): ");
+            System.out.print("Introduce el numero de filas (minimo 3, maximo 100): ");
+            while (!imprimir.hasNextInt()) {
+                System.out.println("Error: No has introducido un numero. \n Por favor introduce un numero valido.");
+                imprimir.next();
+            }
+
             filas = imprimir.nextInt();
             if (filas < 3){
                 System.out.println("Error: El número de filas debe ser mayor o igual a 3. Inténtalo de nuevo.");
             }
-        }while (filas < 3);
+        }while (filas < 3 || filas > 100);
 
         do{
-            System.out.print("Introduce el numero de columnas (minimo 3): ");
+            System.out.print("Introduce el numero de columnas (minimo 3, maximo 100): ");
+
+            while (!imprimir.hasNextInt()) {
+                System.out.println("Error: No has introducido un numero. \n Por favor introduce un numero valido.");
+                imprimir.next();
+            }
             columnas = imprimir.nextInt();
             if (columnas < 3){
                 System.out.println("Error: El número de columnas debe ser mayor o igual a 3. Inténtalo de nuevo.");
             }
-        }while (columnas < 3);
+        }while (columnas < 3 || columnas > 100);
 
         int maxMinas = filas * columnas;
 
